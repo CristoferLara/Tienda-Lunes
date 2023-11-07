@@ -1,30 +1,30 @@
-
 package com.tienda.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name ="categoria")
+@Table(name = "categoria")
+public class Categoria implements Serializable {
 
-/*Serializacoin va a almacenar datos de la bd*/
-public class Categoria implements Serializable  {
- 
- private static final long serialVersionUID = 1L; /*para poder hacer el ciclo de la sumatoria de la categoria de bd*/  
+    private static final long serialVersionUID = 1L;
 
-@Id /*id es la llave de la tabla categoria*/
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id_categoria")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categoria")
+    private Long idCategoria;
+    private String descripcion;
+    private String rutaImagen;
+    private boolean activo;
 
- private long idCategoria;
- private String descripcion;
- private String rutaImagen;
- private boolean activo;
+    @OneToMany
+    @JoinColumn(name = "id_categoria", updatable = false)
+    List<Producto> productos;
 
     public Categoria() {
-      
     }
 
     public Categoria(String descripcion, boolean activo) {
@@ -32,5 +32,4 @@ public class Categoria implements Serializable  {
         this.activo = activo;
     }
 
- 
 }
